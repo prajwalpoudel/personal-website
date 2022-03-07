@@ -30,6 +30,8 @@ class RouteServiceProvider extends ServiceProvider
 
     protected $frontNamespace = 'App\Http\Controllers\Front';
 
+    protected $adminNamespace = 'App\Http\Controllers\Admin';
+
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -51,6 +53,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
 
             $this->mapFrontRoutes();
+            $this->mapAdminRoutes();
         });
     }
 
@@ -70,5 +73,12 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->frontNamespace)
             ->group(base_path('routes/front.php'));
+    }
+    protected function mapAdminRoutes() {
+        Route::middleware('web')
+            ->namespace($this->adminNamespace)
+            ->name('admin.')
+            ->prefix('admin')
+            ->group(base_path('routes/admin.php'));
     }
 }
